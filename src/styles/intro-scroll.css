@@ -1,0 +1,7 @@
+.intro-scroll {
+    position: fixed;
+    bottom: 2rem;
+    right: 1rem;
+    transition: opacity 0.5s;
+    cursor: pointer;
+}
