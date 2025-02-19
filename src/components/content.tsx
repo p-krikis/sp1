@@ -1,16 +1,16 @@
 import "../styles/content.css";
 import { MdOutlineArrowCircleRight, MdOutlineArrowCircleDown } from "react-icons/md";
 import Gallery from "./gallery";
-import Scene from "./viewer-3d";
-import { useState } from "react";
+//import Scene from "./viewer-3d";
+//import { useState } from "react";
 
 export default function Content() {
 
-    const [selectedModel, setSelectedModel] = useState("defaultModel");
+    //const [selectedModel, setSelectedModel] = useState("defaultModel");
 
-    const handleModelChange = (model: string) => {
-        setSelectedModel(model);
-    };
+    // const handleModelChange = (model: string) => {
+    //     setSelectedModel(model);
+    // };
     
     return (
         <div className="content-container">
@@ -29,10 +29,48 @@ export default function Content() {
                 </div>
                 <div className="content-b2">
                     <div className="b2-3dviewer">
-                        <Scene model={selectedModel}/>
-                        <button onClick={() => handleModelChange("model1")} className="modelSelector" />
-                        <button onClick={() => handleModelChange("model2")} className="modelSelector" />
-                        <button onClick={() => handleModelChange("model3")} className="modelSelector" />
+                        <div className="sketchfab-embed-wrapper">
+                            <iframe 
+                                title="F/A - 18 NG"
+                                allowFullScreen 
+                                mozallowfullscreen="true" 
+                                webkitallowfullscreen="true" 
+                                allow="autoplay; fullscreen; xr-spatial-tracking" 
+                                src="https://sketchfab.com/models/67c22413464f4ad6933e3fc4b3ea33c8/embed"
+                                {...({
+                                    "xr-spatial-tracking": "",
+                                    "execution-while-out-of-viewport": "",
+                                    "execution-while-not-rendered": "",
+                                    "web-share": ""
+                                } as any)}
+                            />
+                            <p className="sketchfab-caption">
+                                <a 
+                                    href="https://sketchfab.com/3d-models/fa-18-ng-67c22413464f4ad6933e3fc4b3ea33c8?utm_medium=embed&utm_campaign=share-popup&utm_content=67c22413464f4ad6933e3fc4b3ea33c8" 
+                                    target="_blank" 
+                                    rel="nofollow" 
+                                    className="sketchfab-link"
+                                >
+                                    F/A - 18 NG
+                                </a> by 
+                                <a 
+                                    href="https://sketchfab.com/MaffoXD?utm_medium=embed&utm_campaign=share-popup&utm_content=67c22413464f4ad6933e3fc4b3ea33c8" 
+                                    target="_blank" 
+                                    rel="nofollow" 
+                                    className="sketchfab-link"
+                                >
+                                    MaffoXD
+                                </a> on 
+                                <a 
+                                    href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=67c22413464f4ad6933e3fc4b3ea33c8" 
+                                    target="_blank" 
+                                    rel="nofollow"
+                                    className="sketchfab-link"
+                                >
+                                    Sketchfab
+                                </a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
