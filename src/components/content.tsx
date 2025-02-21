@@ -1,17 +1,33 @@
 import "../styles/content.css";
 import { MdOutlineArrowCircleRight, MdOutlineArrowCircleDown } from "react-icons/md";
 import Gallery from "./gallery";
-//import Scene from "./viewer-3d";
-//import { useState } from "react";
+import { useState } from "react";
+
+import { RiArrowLeftWideLine } from "react-icons/ri";
+import { RiArrowRightWideLine } from "react-icons/ri";
+import { BsThreeDots } from "react-icons/bs";
 
 export default function Content() {
+    const [activeModelIndex, setActiveModelIndex] = useState(0);
+    const models = [
+        {
+            title: "F/A - 18 NG",
+            src: "https://sketchfab.com/models/67c22413464f4ad6933e3fc4b3ea33c8/embed"
+        },
+        {
+            title: "Shenyang J-11",
+            src: "https://sketchfab.com/models/f3b0a285198a4523b96b9ac372e18865/embed"
+        }
+    ];
 
-    //const [selectedModel, setSelectedModel] = useState("defaultModel");
+    const slideLeft = () => {
+        setActiveModelIndex((prev) => Math.max(prev - 1, 0));
+    };
 
-    // const handleModelChange = (model: string) => {
-    //     setSelectedModel(model);
-    // };
-    
+    const slideRight = () => {
+        setActiveModelIndex((prev) => Math.min(prev + 1, models.length - 1));
+    };
+
     return (
         <div className="content-container">
             <div className="content-section-1">
@@ -29,76 +45,48 @@ export default function Content() {
                 </div>
                 <div className="content-b2">
                     <div className="b2-3dviewer">
-                        <div className="sketchfab-embed-wrapper">
-                            <iframe 
-                                title="F/A - 18 NG"
-                                allowFullScreen 
-                                mozallowfullscreen="true" 
-                                webkitallowfullscreen="true" 
-                                allow="autoplay; fullscreen; xr-spatial-tracking" 
-                                src="https://sketchfab.com/models/67c22413464f4ad6933e3fc4b3ea33c8/embed"
-                                {...({
-                                    "xr-spatial-tracking": "",
-                                    "execution-while-out-of-viewport": "",
-                                    "execution-while-not-rendered": "",
-                                    "web-share": ""
-                                } as any)}
-                            />
-                            <p className="sketchfab-caption">
-                                <a 
-                                    href="https://sketchfab.com/3d-models/fa-18-ng-67c22413464f4ad6933e3fc4b3ea33c8?utm_medium=embed&utm_campaign=share-popup&utm_content=67c22413464f4ad6933e3fc4b3ea33c8" 
-                                    target="_blank" 
-                                    rel="nofollow" 
-                                    className="sketchfab-link"
-                                >
-                                    F/A - 18 NG
-                                </a> by 
-                                <a 
-                                    href="https://sketchfab.com/MaffoXD?utm_medium=embed&utm_campaign=share-popup&utm_content=67c22413464f4ad6933e3fc4b3ea33c8" 
-                                    target="_blank" 
-                                    rel="nofollow" 
-                                    className="sketchfab-link"
-                                >
-                                    MaffoXD
-                                </a> on 
-                                <a 
-                                    href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=67c22413464f4ad6933e3fc4b3ea33c8" 
-                                    target="_blank" 
-                                    rel="nofollow"
-                                    className="sketchfab-link"
-                                >
-                                    Sketchfab
-                                </a>
-                            </p>
+                        <div className="sketchfab-carousel-wrapper" style={{ overflow: 'hidden' }}>
+                            {/* Render a single iframe that re-mounts on model change */}
+                            <div className="sketchfab-iframe-container slide-animation">
+                                <iframe 
+                                    key={activeModelIndex} 
+                                    title={models[activeModelIndex].title}
+                                    allowFullScreen
+                                    mozallowfullscreen="true"
+                                    webkitallowfullscreen="true"
+                                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                                    className="sketchfab-embed"
+                                    src={models[activeModelIndex].src}
+                                    {...({
+                                        "xr-spatial-tracking": "",
+                                        "execution-while-out-of-viewport": "",
+                                        "execution-while-not-rendered": "",
+                                        "web-share": ""
+                                    } as any)}
+                                />
+                            </div>
+                        </div>
+                        <div className="b2-3dviewer-controls">
+                            <button onClick={slideLeft} className="previous-3d"><RiArrowLeftWideLine size={60}/></button>
+                            <BsThreeDots size={65} className="dots-3d"/>
+                            <button onClick={slideRight} className="next-3d"><RiArrowRightWideLine size={60}/></button>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="content-section-2">
                 <div className="content-b3">
-                    <div className="b3-box">
-
-                    </div>
+                    <div className="b3-box"></div>
                     <MdOutlineArrowCircleDown size={50} className="b3-arrow"/>
-                    <div className="b3-box">
-
-                    </div>
+                    <div className="b3-box"></div>
                     <MdOutlineArrowCircleRight size={50} className="b3-arrow"/>
-                    <div className="b3-box">
-
-                    </div>
+                    <div className="b3-box"></div>
                     <MdOutlineArrowCircleDown size={50} className="b3-arrow"/>
-                    <div className="b3-box">
-
-                    </div>
+                    <div className="b3-box"></div>
                     <MdOutlineArrowCircleRight size={50} className="b3-arrow"/>
-                    <div className="b3-box">
-
-                    </div>
+                    <div className="b3-box"></div>
                     <MdOutlineArrowCircleRight size={50} className="b3-arrow"/>
-                    <div className="b3-box">
-
-                    </div>
+                    <div className="b3-box"></div>
                 </div>
             </div>
             <Gallery />
