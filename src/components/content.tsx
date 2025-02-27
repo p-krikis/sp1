@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import Gallery from "./gallery";
 import { MdOutlineArrowCircleRight, MdOutlineArrowCircleDown, MdCollections } from "react-icons/md";
 import { RiArrowLeftWideLine, RiArrowRightWideLine } from "react-icons/ri";
-import { BsThreeDots } from "react-icons/bs";
+//import { BsThreeDots } from "react-icons/bs";
 
 export default function Content() {
     const [activeModelIndex, setActiveModelIndex] = useState(0);
