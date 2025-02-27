@@ -1,10 +1,22 @@
+:root {
+  --primary-color: #1a73e8;
+  --secondary-color: #34a853;
+  --accent-color: #4285f4;
+  --dark-bg: rgba(9, 12, 34, 0.95);
+  --light-text: #f8f9fa;
+  --card-bg: rgba(255, 255, 255, 0.12);
+  --card-border-radius: 20px;
+  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  --transition-speed: 0.3s;
+}
+
 .content-container {
   position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
   height: fit-content;
-  padding: 2rem;
+  padding: 1.5rem;
   z-index: 2;
   gap: 2rem;
   background: rgb(9, 12, 34);
@@ -14,33 +26,92 @@
     rgb(52, 91, 99) 50%,
     rgba(9, 12, 34, 1) 100%
   );
+  color: var(--light-text);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .content-section-1 {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .content-b1,
 .content-b2 {
-  background-color: #f0f0f077;
-  width: 22%;
-  border-radius: 20px;
-  padding: 1rem;
+  background-color: var(--card-bg);
+  width: 100%;
+  border-radius: var(--card-border-radius);
+  padding: 1.5rem;
   height: fit-content;
+  box-shadow: var(--box-shadow);
+  backdrop-filter: blur(10px);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
 }
 
-.content-b2 {
-  width: 75%;
-  border-radius: 20px;
-  padding: 1rem;
+.content-b1:hover,
+.content-b2:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.b1-title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--light-text);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+  width: fit-content;
+}
+
+.b1-text {
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1rem;
 }
 
 .b2-3dviewer {
   width: 100%;
-  height: 42.5vw;
-  border-radius: 20px;
+  height: 50vh;
+  border-radius: var(--card-border-radius);
+  overflow: hidden;
+  position: relative;
+}
+
+.model-title {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  z-index: 10;
+  backdrop-filter: blur(5px);
+}
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 5;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .sketchfab-carousel-wrapper {
@@ -48,106 +119,261 @@
   height: 100%;
 }
 
-.sketchfab-carousel-wrapper .slide-animation {
+.slide-animation {
   width: 100%;
   height: 100%;
+  animation: fadeIn 0.5s ease-in;
 }
 
-.sketchfab-carousel {
-  width: 100%;
-  height: 100%;
-}
-
-.sketchfab-embed-wrapper {
-  width: 100%;
-  height: 100%;
-  
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .sketchfab-embed {
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+  border-radius: var(--card-border-radius);
   border: none;
 }
 
 .b2-3dviewer-controls {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  flex-direction: row;
-  position: relative;
-  bottom: 20px;
-  left: 0;
+  gap: 0.25rem;
+  z-index: 10;
+}
+
+.viewer-control {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
 .previous-3d {
-  background-color: #f0f0f0;
-  border: none;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-}
-
-.dots-3d {
-  background-color: #f0f0f0;
-  border: none;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  padding-left: 0.75rem;
 }
 
 .next-3d {
-  background-color: #f0f0f0;
-  border: none;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  padding-right: 0.75rem;
+}
+
+.dots-3d {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewer-control:hover {
+  background-color: rgba(var(--primary-color), 0.6);
+}
+
+.viewer-control:active {
+  transform: scale(0.95);
+}
+
+.model-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 1rem;
+}
+
+.indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.indicator-dot.active {
+  background-color: var(--primary-color);
+  transform: scale(1.3);
 }
 
 .content-b3 {
   width: 100%;
-  border-radius: 20px;
-  height: 20rem;
+  border-radius: var(--card-border-radius);
+  min-height: 10rem;
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
 }
 
 .b3-box {
-  background-color: #f0f0f077;
-  backdrop-filter: blur(10px);
-  width: 12.5%;
-  border: red 2px solid;
-  border-radius: 20px;
-  padding: 1rem;
-  height: 75%;
+  background-color: var(--card-bg);
+  width: 80%;
+  border-radius: var(--card-border-radius);
+  padding: 1.5rem;
+  min-height: 5rem;
+  box-shadow: var(--box-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.b3-box:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-5px);
+}
+
+.b3-box.active {
+  border-color: var(--primary-color);
+  background-color: rgba(26, 115, 232, 0.1);
+}
+
 .b3-arrow {
-  width: 5%;
+  color: var(--primary-color);
+  filter: drop-shadow(0 0 8px rgba(26, 115, 232, 0.5));
+  transition: all 0.3s ease;
 }
 
 .content-section-3 {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   gap: 2rem;
 }
 
-.content-b4 {
-  background-color: #f0f0f0;
-  width: 100%;
-  border: red 8px solid;
-  border-radius: 20px;
-  padding: 1rem;
-  height: 70rem;
+.section-title {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--light-text);
   display: flex;
-  flex-direction: row;
   align-items: center;
+  gap: 0.5rem;
+}
+
+.section-title::after {
+  content: '';
+  height: 2px;
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.content-b4 {
+  background-color: var(--card-bg);
+  width: 100%;
+  border-radius: var(--card-border-radius);
+  padding: 1.5rem;
+  height: auto;
+  min-height: 30rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: var(--box-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sketchfab-caption {
   font-size: 13px;
-  font-weight: normal;
-  margin: 5px;
-  color: #4A4A4A;
+  margin: 10px 0;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
 }
 
 .sketchfab-link {
-  font-weight: bold;
-  color: #1CAAD9;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.sketchfab-link:hover {
+  text-decoration: underline;
+  color: #64a0f0;
+}
+
+/* Media Queries for Responsive Design */
+@media screen and (min-width: 768px) {
+  .content-container {
+    padding: 2rem;
+  }
+  
+  .content-section-1 {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .content-b1 {
+    width: 30%;
+  }
+  
+  .content-b2 {
+    width: 68%;
+  }
+  
+  .b2-3dviewer {
+    height: 40vh;
+  }
+  
+  .content-b3 {
+    flex-wrap: nowrap;
+  }
+  
+  .b3-box {
+    width: 18%;
+  }
+  
+  .b3-arrow {
+    width: 3%;
+    transform: rotate(0);
+  }
+  
+  .content-section-3 {
+    flex-direction: row;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .content-container {
+    padding: 2.5rem;
+  }
+  
+  .content-b1 {
+    width: 22%;
+  }
+  
+  .content-b2 {
+    width: 75%;
+  }
+  
+  .b2-3dviewer {
+    height: 42.5vw;
+  }
+  
+  .b3-box {
+    width: 12.5%;
+  }
+  
+  .b3-arrow {
+    width: 5%;
+  }
+  
+  .content-b4 {
+    flex-direction: row;
+  }
 }
